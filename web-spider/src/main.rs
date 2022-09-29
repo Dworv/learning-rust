@@ -33,13 +33,3 @@ async fn main() {
 
     println!("{:?}", sites);
 }
-
-fn spawn_stdin_channel() -> Receiver<String> {
-    let (tx, rx) = mpsc::channel::<String>();
-    thread::spawn(move || loop {
-        let mut buffer = String::new();
-        io::stdin().read_line(&mut buffer).unwrap();
-        tx.send(buffer).unwrap();
-    });
-    rx
-}
